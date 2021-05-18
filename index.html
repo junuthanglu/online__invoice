@@ -1,0 +1,1308 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	  <script src="https://kit.fontawesome.com/66f9daa6db.js" crossorigin="anonymous"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+  	  <script src="jspdf.plugin.autotable.min.js" type="text/javascript"></script>
+  	
+	<title></title>
+
+	<style type="text/css">
+		body{
+			background-color: #dddddd21;
+		}
+		h5{
+			color:#5bc0de;
+		}
+		.m-0{
+			margin: 0;
+		}
+		.p-0{
+			padding: 0;
+		}
+		.invoice{
+			width: 100%;
+			margin-top: 10%;
+			margin-bottom: 20%;
+			background-color: #fff;
+			box-shadow: 0 0 8px -4px;
+
+		}
+		.foem{
+			padding: 20px 45px 40px 45px ;
+		}
+		.foem input{
+			margin-bottom: 5px;
+		}
+		.invoice .foem span{
+			color: red;
+			margin-left: 3px;
+		}
+		.w3-table td{
+			text-align: center;
+		}
+		.w3-table .close-btn{
+			padding: 0;
+		    vertical-align: middle;
+		    display: block;
+		}
+		#table-row input{
+			border:none;
+			padding:15px;
+			background-color: #fdfdfdba;
+			width: 100%;
+		}
+		.table-row-select{
+			border:none;
+			padding:15px;
+			background-color: #fdfdfdba;
+			width: 100%;
+		}
+		.w3-table th{
+			text-align: center;
+		}
+		.add-btn{
+			margin-left: 95px;
+		}
+		.totel{
+			padding-bottom: 25px;
+		}
+		.totel .totel-comtent{
+			padding:7px;
+		}
+		.totel .sub{
+			text-align: right;
+		}
+		.totel .sub input{
+			width: 30%;
+		    display: inline;
+		    margin-left: 5px;
+		}
+		.totel .amt{
+			text-align: center;
+		}.totel .totl{
+			text-align: right;
+			font-weight: 600;
+			text-decoration: underline;
+		}
+		#tott{
+			text-decoration: underline;
+		}
+		.btton-area{
+			
+			text-align: center;
+		}
+		.btton-area button{
+			margin-bottom: 20px;
+		}
+
+		/*modal css start*/
+		.preview-modal{
+			width: 70%;
+			padding: 100px;
+		}
+
+		.company-details{
+
+		}
+		/*modal css end*/
+
+	</style>
+
+	<!-- new modal style -->
+	<style type="text/css">
+		.modal-body .invoice{
+			/*box-shadow: 0 0 8px -3px;*/
+			border: 1px solid;
+			margin: 0;
+		}
+		.modal-body .row{
+			margin: 0px;
+		}
+		.sec1,.sec2,.sec3{
+			border-bottom: 1px solid;
+		}
+		.sec1 h2{
+			margin-top: 7vh;
+			text-transform: uppercase;
+		}
+		.modal-body .to-details{
+			border-right: 1px solid;
+		}
+
+		.sec1,.sec2 span,p{
+			font-size: 12px;
+		}
+		
+		/*table*/
+		.modal-table table {
+		  font-family: arial, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+
+		.modal-table td,th{
+		  border: 1px solid #dddddd;
+		  text-align: left;
+		  padding: 5px;
+		  font-size: 13px;
+		}
+		.modal-table th{
+			text-align: left;
+			background-color: #dddddd69;
+			
+		}
+		/*.modal-table tr:nth-child(odd) {
+		  background-color: #dddddd69;
+		}*/
+		/*tabel*/
+		.modal-body.total-area{
+			padding: 0px;
+		}
+
+		.sec4 .total-area{
+			border-bottom: 1px solid;
+			border-left: 1px solid;
+			
+		}
+		.sec4 span{
+			font-size: 13px;
+		}
+		.sec4 .total-area .toatal-box{
+			margin-top: 15px;
+		    margin-bottom: 15px;
+		    font-size: 12px;
+		    
+		}
+		.sec4 .total-area .toatal-box .dark{
+			font-weight: 600;
+			margin-top: 3px;
+		}
+		.billto{
+			border-bottom: 1px solid;
+			background-color: #dddddd69;
+			padding-left: 15px;
+		}
+		.preview__image img{
+			margin-top: 5px;
+			object-fit: contain;
+			width: 100px;
+			height: 100px;
+			display: none;
+		}
+		.seal img{
+			margin-top: 5px;
+			object-fit: contain;
+			width: 100px;
+			height: 100px;
+			display: none;
+		}
+		#modallogo{
+			height: 120px;
+			width: 120px;
+			object-fit: contain;
+		}
+		#modalseal{
+			height: 120px;
+			width: 120px;
+			object-fit: contain;
+		}
+	</style>
+</head>
+<body>
+
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-10">
+					<div class="invoice">
+						<form id="invoice-form">
+							<div class="box"></div>
+
+							<div class="row">
+
+								<!-- from strt -->
+								<div class="col-lg-6 col-md-6 col-sm-6 foem">
+									<h5>Bill From</h5>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Comapany Name<span>*</span></div>
+									  <div class="col-md-7 m-0 p-0"><input type="text" class="form-control"  placeholder="Comapany Name"  name="company-name" required /></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Email <span>*</span> </div>
+									  <div class="col-md-7 m-0 p-0"><input type="email" class="form-control"placeholder="Email" name="company-email" required/></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Address <span>*</span></div>
+									  <div class="col-md-7 m-0 p-0"><input type="text" class="form-control"  placeholder="Street" name="company-street" required/></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0"></div>
+									  <div class="col-md-7 m-0 p-0"><input type="text" class="form-control"  placeholder="City" name="company-city" /></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0"></div>
+									  <div class="col-md-7 m-0 p-0"><input type="number" class="form-control"  placeholder="Zip code" name="company-zipcode" /></div>
+									</div>
+
+									<div class="row mb-1 m-0 ">
+									  <div class="col-md-5 m-0 p-0">Phone <span>*</span></div>
+									  <div class="col-md-7 m-0 p-0"><input type="number" class="form-control"  placeholder="Phone" name="company-phone" required/></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Business Number</div>
+									  <div class="col-md-7 m-0 p-0"><input type="number" class="form-control"  placeholder="Business Number" name="company-businessphone" /></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Logo</div>
+									  <div class="col-md-7 m-0 p-0">
+									  	<input type="file" class="btn  "  placeholder="" name=""  id="file-logo" /></div>								  
+									</div>
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0"></div>
+									  <div class="col-md-7 m-0 p-0 preview__image" >
+									  	<img id="prvw_img" src="" alt="" accept="image/*">
+									  </div>								  
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Company Seal</div>
+									  <div class="col-md-7 m-0 p-0">
+									  	<input type="file" class="btn  "  placeholder="" name=""  id="file-seal" /></div>								  
+									</div>
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0"></div>
+									  <div class="col-md-7 m-0 p-0 seal" >
+									  	<img id="prvw_seal" src="" alt="" accept="image/*">
+									  </div>								  
+									</div>
+								
+
+								</div>
+								<!-- from end -->
+
+								<!-- to strt -->
+								<div class="col-lg-6 col-md-6 col-sm-6 foem">
+									<h5> Bill To</h5>
+									
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Comapany Name <span>*</span></div>
+									  <div class="col-md-7 m-0 p-0"><input type="text" class="form-control"  placeholder="Comapany Name" name="to-name" required/></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Email <span>*</span></div>
+									  <div class="col-md-7 m-0 p-0"><input type="text" class="form-control"  placeholder="Email" name="to-email" required /></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Address <span>*</span></div>
+									  <div class="col-md-7 m-0 p-0"><input type="text" class="form-control"  placeholder="Street" name="to-street" required/></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0"></div>
+									  <div class="col-md-7 m-0 p-0"><input type="text" class="form-control"  placeholder="City" name="to-city" /></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0"></div>
+									  <div class="col-md-7 m-0 p-0"><input type="number" class="form-control"  placeholder="Zip code" name="to-zipcode" /></div>
+									</div>
+
+									<div class="row mb-1 m-0 ">
+									  <div class="col-md-5 m-0 p-0">Phone <span>*</span></div>
+									  <div class="col-md-7 m-0 p-0"><input type="number" class="form-control"  placeholder="Phone" name="to-phone" required /></div>
+									</div>
+								</div>
+							</div>
+							<!-- to end -->
+							<hr>
+							<!-- invoice details strt -->
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-sm-6 foem">
+
+									<h5>Invoice Details</h5>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Invoice No <span>*</span></div>
+									  <div class="col-md-7 m-0 p-0"><input id="invoice-id" type="text" class="form-control" readonly="" placeholder="Invoice No" name="invoice-no" required/></div>
+									</div>
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Date <span>*</span></div>
+									  <div class="col-md-7 m-0 p-0"><input id="today" type="text" class="form-control" readonly="" placeholder="Date" name="invoice-date"  required/></div>
+									</div>
+
+									<!-- <div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Term</div>
+									  <div class="col-md-7 m-0 p-0">
+									  	<select class="form-control" name="invoice-term" style="margin-bottom: 5px;">
+									  		
+									  		<option value="On Receipt">On Receipt</option>
+									  		<option value="With In A Week">With In a Week</option>
+									  		<option value="Due Date">Due Date </option>
+									  	</select>
+									  
+									  </div>
+									</div> -->
+
+									<div class="row mb-1 m-0">
+									  <div class="col-md-5 m-0 p-0">Deu Date <span>*</span></div>
+									  <div class="col-md-7 m-0 p-0"><input type="Date" class="form-control" placeholder="Deu Date" name="invoice-duedate" required/></div>
+									</div>
+								</div>
+							</div>
+							<!-- invoice details end -->
+							<hr>
+							<!-- table strt -->
+							<div class="w3-container">
+							  <table class="w3-table " id="item-table">
+							    <tr id="thisrowid1">
+							      <th>Item Details</th>
+							      <th style="width: 15%;">Quantity</th>
+							      <th style="width: 15%;">Rate</th>
+							      <th style="width: 15%;">Discount</th>
+							      <th style="width: 15%;">Amount</th>
+							    </tr>
+							    <tr id="table-row0">
+							      <td>
+							      	<input   class="form-control" type="text"  name="item-name0" placeholder="item ">
+							      </td>
+							      <td>
+							      	<input id="qty" class="form-control" type="text" name="qty0" onfocusout="grandTotel()" value="1" placeholder="0">
+							      </td>
+							      <td>
+							      	<input id="rate"  class="form-control" type="text" name="rate0" placeholder="0.00" onfocusout="grandTotel()">
+							      </td>
+							      <td>
+							      	<input id="disc"  class="form-control table-discount" type="text" name="disc0" placeholder="0.00" onfocusout="discount()">
+							      </td>
+							      <td>
+							      	<input id="amt" class="form-control  table-amount" readonly type="number" name="amt0" placeholder="0.00" >
+							      </td>
+							      <td ><button class="btn btn-danger close-btn" ><i class="fa fa-times"></i></button></td>
+							    </tr>
+							 
+							   
+							  </table>
+							</div>
+							<!-- table end -->
+							<hr>
+							<input class="btn btn-info add-btn"  type="button"  value='+' onclick="addMember()"/>
+							<hr>
+							
+							<!-- totel area strt -->
+							<div class="totel">
+								<div class="row totel-comtent">
+									<div class="col-md-6 col-sm-6"></div>
+									<div class="col-md-6 col-sm-6">
+										<div class="col-md-6 col-sm-6 sub">Sub Total</div>
+										<div id="subtotal" class="col-md-6 col-sm-6 amt">0.00/-</div>
+									</div>
+								</div>
+
+							<div class="row totel-comtent">
+									<div class="col-md-6 col-sm-6"></div>
+									<div class="col-md-6 col-sm-6">
+										<div class="col-md-6 col-sm-6 sub">Total Discount</div>
+										<div id="discount" class="col-md-6 col-sm-6 amt">0.00/-</div>
+									</div>
+								</div>
+
+							<div class="row totel-comtent">
+								<div class="col-md-6 col-sm-6"></div>
+								<div class="col-md-6 col-sm-6">
+									<div class="col-md-6 col-sm-6 sub">Tax<input id="taxVal" onfocusout="calculateTax()"class="form-control" type="text" placeholder="0"  name="">%</div>
+									<div id="tx" class="col-md-6 col-sm-6 amt">0.00/-</div>
+								</div>
+							</div>
+
+							<div class="row totel-comtent">
+								<div class="col-md-6 col-sm-6"></div>
+								<div class="col-md-6 col-sm-6">
+									<div class="col-md-6  col-sm-6 totl">Total</div>
+									<div id="tott" class="col-md-6 col-sm-6 amt  total-amt">0.00/-</div>
+								</div>
+							</div>
+							</div>
+							<!-- totel area end -->
+
+							<hr>
+							<div class="row btton-area">
+			
+								<!-- <button type="button" class="btn btn-primary prvw" data-toggle="modal" data-target="#preview">Preview</button> -->
+
+								<button type="button" class="btn btn-primary prevw" data-toggle="modal" data-target="#preview1">Preview</button>
+
+								<!-- <button type="submit" class="btn btn-info submit">Submit</button> -->
+
+								<button type="button" class="btn btn-primary btn-reset">Reset</button>
+
+							</div>
+						</form>
+
+					</div>
+				</div>
+				<div class="col-lg-1"></div>
+			</div>
+		</div>
+	</section>
+
+
+
+
+	<!-- Preview Modal -->
+
+	<div id="preview1" class="modal fade" role="dialog">
+	  <div class="modal-dialog preview-modal">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Invoice</h4>
+	      </div>
+	      <div class="modal-body">
+	       		
+	      		<div class="invoice">
+	      			<form id="modalform" action="">
+
+					<div class="row sec1">
+						<div class="col-md-3">
+							<img src="" id="modallogo">
+						</div>
+						<div class="col-md-6 ">
+							<h3 id="modal2name">Company Name</h3>
+							<span id="modal2street">Street</span>
+							<span id="modal2city">City</span>
+							<span id="modal2zipcode">Zipcode</span>
+							<p><span id="modal2phone">Phone</span><span id="modal2businessphone">Business Number</span></p>
+							<p id="modal2email">Email</p>
+						</div>
+						<div class="col-md-3 ">
+							<h2>Invoice</h2>
+						</div>
+					</div>
+					<div class="row billto">Bill To</div>
+
+					<div class=" row sec2">
+						
+						<div class="col-md-5 to-details">
+							<h3 id="modal2toname">Company Name</h3>
+							<span id="modal2tostreet">street, </span>
+							<span id="modal2tocity">city, </span>
+							<span id="modal2tozipcode">zipcode</span>
+							<p><span id="modal2tophone">phone,</span></p>
+							<p id="modal2toemail">email</p>
+						</div>
+						<div class="col-md-7 invoice-details">
+							<div class="row" style="margin-top: 10px;">
+								<div class="col-md-5">
+									<p>Invoice No </p>
+									<p>Invoice date </p>
+									<!-- <p>Invoice term </p> -->
+									<p>Invoice last date </p>
+								</div>
+								<div class="col-md-7">
+									<p id="invoice-no"></p>
+									<p id="invoice-date"></p>
+									<!-- <p id="invoice-term"></p> -->
+									<p id="invoice-duedate"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="sec3">
+						<div class="row">
+							
+							<table class="w3-table modal-table" id="modal-tabel" > 
+							  <tr>
+							    <th>Item</th>
+							    <th style="width: 15%;">Quantity</th>
+							    <th style="width: 15%;">Rate</th>
+							    <th style="width: 13%;">Discount</th>
+							    <th style="width: 18%;">Amount</th>
+							  </tr>
+							</table>
+						</div>
+					</div>
+
+					<div class="sec4">
+						<div class="row">
+							<div class="col-md-7">
+								<span id="modaltw">Total In Words :</span>
+								<p><strong id="totalinwords"></strong></p>
+								<!-- <div style="height: 200px;">
+									Note Area
+								</div> -->
+							</div>
+							<div class="col-md-5 total-area">
+
+								<div class="toatal-box">
+									<div class="row">
+										<div class="col-md-6">
+											Sub Total
+										</div>
+										<div class="col-md-6" id="modalsubtotal">
+											
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-6">
+											Discount
+										</div>
+										<div class="col-md-6" id="modaldiscount">
+											
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-6" id="modaltaxvalue">
+											
+										</div>
+										<div class="col-md-6" id="modaltax">
+											
+										</div>
+									</div>
+
+									<div class="row dark">
+										<div class="col-md-6">
+											Total
+										</div>
+										<div class="col-md-6 " id="modalamount">
+											
+										</div>
+									</div>
+								
+								</div>
+
+								<div class="row" style="width: 100%;height: 150px; text-align:center;margin:0; border-top: 1px solid;">
+									
+									<div id="seal">
+										<img id="modalseal" src="" alt="image">
+									</div>
+									<span>Authorised Signature</span>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</form>
+				</div>
+
+	      		
+	      		
+
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="submit" class="btn btn-info btn-dwnld ">Print</button>
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Edit</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
+
+	
+
+
+
+
+<script>
+
+	let count=0;
+	let grandtotel;
+
+	
+
+$(document).ready(function(){
+
+	// Logo preview
+	var image;
+	document.querySelector('#file-logo').addEventListener('change',function(){
+
+		let file=this.files[0];
+		if(file){
+			let reader = new FileReader();
+			
+			$('#prvw_img').css("display","block");
+			reader.addEventListener('load',function() {
+				 image = this.result;
+				document.querySelector('#prvw_img').setAttribute('src',this.result);	
+			});
+			reader.readAsDataURL(file);
+		}	
+	});
+	// autherised signature preview
+	var seal;
+	document.querySelector('#file-seal').addEventListener('change',function(){
+
+		let filel=this.files[0];
+
+		if(filel){
+			let readers= new FileReader();
+			
+			$('#prvw_seal').css("display","block");
+			readers.addEventListener('load',function() {
+				 seal = this.result;
+				document.querySelector('#prvw_seal').setAttribute('src',this.result);	
+			});
+			readers.readAsDataURL(filel);
+		}	
+	});
+
+	let invoice_id=Date.now();
+	$('#invoice-id').val("INV_"+invoice_id);
+	
+
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = today.getFullYear();
+
+	today = dd + '-' + mm + '-' +  yyyy;
+	
+	$('#today').val(today);
+
+	$("#item-table").on('click', '.close-btn', function () {
+	    $(this).closest('tr').remove();
+	    grandTotel();
+    	 discount();
+    	 calculateTax();
+	});
+
+	$(".btn-reset").click(function(){
+            location.reload(true);
+        });
+
+
+    $('#qty').keyup(function(){
+		var qty=$('#qty').val();
+		var rate=$('#rate').val();
+		var amount=qty*rate;
+		var amt=$('#amt');
+		amt.val(amount);
+
+	});
+
+	$('#rate').keyup(function(){
+		var qty=$('#qty').val();
+		var rate=$('#rate').val();
+		var amount=qty*rate;
+		var amt=$('#amt');
+		amt.val(amount);
+
+	});
+
+	$('#disc').keyup(function(){
+		var qty=$('#qty').val();
+		var rate=$('#rate').val();
+		var amount1=qty*rate;
+		var disc=$('#disc').val();		
+		var amount=amount1-disc;
+		var amt=$('#amt');
+		amt.val(amount);	
+		
+	});
+
+	$('.btn-reset').click(function(){
+		// alert(localStorage.getItem('comapny_name1'));
+		$('#invoice-form').reset();
+	});
+
+	$('.prevw').click(function(){
+		
+		// remove previous rows from modal table
+		let modal_tablerow_count=$('#modal-tabel tr').length;
+			
+		if(modal_tablerow_count>0){
+			$("#modal-tabel tr").empty();
+			$('#modal-tabel tbody').append("<tr><th>ITEM</th><th>QUANTITY</th><th>RATE</th><th>DISCOUNT</th><th>AMOUNT</th></tr>");
+		}
+
+
+		// from
+		let comapny_name=$('input[name="company-name"]').val();
+		let comapny_email=$('input[name="company-email"]').val();
+		let comapny_street=$('input[name="company-street"]').val();
+		let comapny_city=$('input[name="company-city"]').val();
+		let comapny_zipcode=$('input[name="company-zipcode"]').val();
+		let comapny_phone=$('input[name="company-phone"]').val();
+		let comapny_businessphone=$('input[name="company-businessphone"]').val();
+
+		// logo and seal image
+		 var imgsrc = $('#prvw_img').attr('src');
+		 var sealsrc= $('#prvw_seal').attr('src');
+
+		// to
+		let to_name=$('input[name="to-name"]').val();
+		let to_email=$('input[name="to-email"]').val();
+		let to_street=$('input[name="to-street"]').val();
+		let to_city=$('input[name="to-city"]').val();
+		let to_zipcode=$('input[name="to-zipcode"]').val();
+		let to_phone=$('input[name="to-phone"]').val();
+
+
+		//invoice
+		let invoice_no=$('input[name="invoice-no"]').val();
+		let invoice_date=$('input[name="invoice-date"]').val();
+		let invoice_term=$('select[name="invoice-term"]').val();
+		let invoice_duedate=$('input[name="invoice-duedate"]').val();
+		let darr=invoice_duedate.split("-");
+
+		// console.log(darr);
+		let due_date=darr[2]+"-"+darr[1]+"-"+darr[0];
+
+		// totale area
+		let subtotal=$('#subtotal').text();
+		let discount=$('#discount').text();
+		let tax_title_value=$('#taxVal').val();
+		let tx=$('#tx').text();
+		let tott=$('#tott').text();
+
+
+		// if(comapny_name == "" || comapny_email == "" || comapny_street == "" || comapny_phone == "" || to_name =="" || to_email == "" || to_street == "" || to_phone == "" || invoice_no == "" || invoice_date == "" || invoice_duedate == "" ){
+	if(comapny_name == "" ){
+			alert("All field must be filled out, Please try again");
+			return false;
+		}
+		else{
+
+			// // validate email
+			//  if( !isValidEmailAddress( comapny_email ) || !isValidEmailAddress( to_email )){
+		 //        alert('Please provide a valid email address. Please try again');
+		 //        return false;
+		 //    }
+
+		 //    // validate bill from Phone
+		 //     if (comapny_phone.length != 10 ) {
+		 //         alert('Please provide a valid Phone Number, Invalid Bill From Phone!');
+		 //        return false;
+		 //    }
+
+		 //    // validate bill to Phone
+		 //     if (to_phone.length != 10) {
+		 //        alert('Please provide a valid Phone Number, Invalid Bill To Phone!');
+		 //        return false;
+		 //    }
+
+
+		
+			// from
+			document.getElementById('modal2name').innerHTML=comapny_name;
+			document.getElementById('modal2street').innerHTML=comapny_street;
+			document.getElementById('modal2city').innerHTML=comapny_city;
+			document.getElementById('modal2zipcode').innerHTML=comapny_zipcode;
+			document.getElementById('modal2phone').innerHTML=comapny_phone;
+			document.getElementById('modal2businessphone').innerHTML=comapny_businessphone;
+			document.getElementById('modal2email').innerHTML=comapny_email;
+
+			// logo
+			document.getElementById('modallogo').setAttribute('src',imgsrc);
+			document.getElementById('modalseal').setAttribute('src',sealsrc);
+
+			// to
+			document.getElementById('modal2toname').innerHTML=to_name;
+			document.getElementById('modal2tostreet').innerHTML=to_street;
+			document.getElementById('modal2tocity').innerHTML=to_city;
+			document.getElementById('modal2tozipcode').innerHTML=to_zipcode;
+			document.getElementById('modal2tophone').innerHTML=to_phone;
+			document.getElementById('modal2toemail').innerHTML=to_email;
+
+			// invoice details
+			document.getElementById('invoice-no').innerHTML=": "+invoice_no;
+			document.getElementById('invoice-date').innerHTML=": "+invoice_date;
+			// document.getElementById('invoice-term').innerHTML=": "+invoice_term;
+			document.getElementById('invoice-duedate').innerHTML=": "+due_date;
+
+
+			// table data draw
+			var tablecount=$('#item-table tr').length;
+			for(let i=1; i<tablecount; i++){
+				var table = document.getElementById("item-table");
+				var row = table.rows[i].id;
+				let trow="#"+row;
+				// console.log(row);
+				let col=table.rows[i].cells.length;
+				// console.log(col);
+				let temparr=[];
+
+				$(trow).find('td').each(function(){
+
+					let value=$(this).find('input, select').val();
+					// console.log(value); 
+					temparr.push(value); 
+				});
+
+				// console.log(temparr[3]);
+				if(temparr[3] == ""){
+					// console.log("discount is null");
+					var dis=0;
+					// console.log(dis);
+				}
+				else{
+					// console.log("discount is not null");
+					dis=temparr[3];
+					// console.log(dis);
+				}	
+				$('#modal-tabel tbody').append("<tr><td>"+temparr[0]+"</td><td>"+temparr[1]+"</td><td>"+temparr[2]+"</td><td>"+dis+"</td><td>"+temparr[4]+"</td></tr>");		
+
+			}
+
+
+			//subtotal
+			document.getElementById('modalsubtotal').innerHTML=": "+subtotal;
+			document.getElementById('modaldiscount').innerHTML=": "+discount;
+			document.getElementById('modaltax').innerHTML=": "+tx;
+			document.getElementById('modalamount').innerHTML=": "+tott;
+			document.getElementById('modaltaxvalue').innerHTML="Tax ( "+tax_title_value+"% )";
+
+			// total in words
+
+			var a = ['','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ','eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '];
+			var b = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
+
+			function inWords (num) {
+			    if ((num = num.toString()).length > 9) return 'overflow';
+			    n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+			    if (!n) return; var str = '';
+			    str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'crore ' : '';
+			    str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'lakh ' : '';
+			    str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'thousand ' : '';
+			    str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'hundred ' : '';
+			    str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : '';
+			    return str;
+			}
+			let grandtotal=parseInt(tott);
+			document.getElementById('totalinwords').innerHTML=inWords(grandtotal);
+		}
+	});	
+});
+
+
+    function addMember() {
+    
+		count++;
+        	$('#item-table tbody').append("<tr id='table-row"+count+"'> <td><input class='form-control' type='text' name='item-name"+count+"' placeholder='item '></td><td><input id='qty"+count+"' value='1' class='form-control' onfocusout='grandTotel()' type='text' name='qty"+count+"' placeholder='0'></td><td><input id='rate"+count+"'class='form-control' onfocusout='grandTotel()' type='text' name='rate"+count+"' placeholder=' 0.00'></td><td><input id='disc"+count+"' class='form-control table-discount' type='text' name='disc"+count+"' placeholder='0.00' onfocusout='discount()'></td><td><input id='amt"+count+"' class='form-control table-amount' type='number' name='amt"+count+"' placeholder='0.00' readonly></td><td ><button class='btn btn-danger close-btn' ><i class='fa fa-times'></i></button></td></tr>");
+
+        for(let i=0; i<=count; i++){
+
+			var qty="#qty"+i;
+			var rate="#rate"+i;
+			var amt="#amt"+i;
+			var disc="#disc"+i;
+
+			$(qty).keyup(function(){
+				var qty1=$(qty).val();
+				var rate1=$(rate).val();
+				var amount=qty1*rate1;
+				var amt1=$(amt);
+				amt1.val(amount);
+						
+			});
+
+			$(rate).keyup(function(){
+				var qty2=$(qty).val();
+				var rate2=$(rate).val();
+				var amount=qty2*rate2;
+				var amt2=$(amt);
+				amt2.val(amount);
+
+			});
+
+			$(disc).keyup(function(){
+				var qty3=$(qty).val();
+				var rate3=$(rate).val();
+				var t=qty3*rate3;
+				var disc3=$(disc).val();		
+				var amount=t-disc3;
+				var amt3=$(amt);
+				amt3.val(amount);
+					
+			});	
+		}
+
+    }
+
+    function deleteMember() {
+
+    	 $(this).closest('tr').remove()
+    	 grandTotel();
+    	 discount();
+    	 calculateTax();
+    }
+
+
+    function grandTotel(){
+
+    	let totel=0;
+    	let subtotel=$('#subtotal');
+
+    	$('.table-amount').each(function(i,obj){
+    		totel=totel + parseInt(obj.value);
+
+    	});
+
+    	if(totel==NaN){
+    		subtotal.innerHTML=0.00+"/-";
+    	}
+    	else{
+    		subtotal.innerHTML=totel+"/-";
+    	}
+    	calculateTax();
+    }
+
+    function discount(){
+    	let grand_totel=0;
+    	let discount_totel=0;
+    	let subtotel=$('#subtotal');
+    	let discount=$('#discount');
+
+    	$('.table-amount').each(function(i,obj){
+    		grand_totel=grand_totel + parseInt(obj.value);
+
+    	});
+
+
+    	$('.table-discount').each(function(j,obj1){
+    		if(obj1.value == ""){
+    			discount_totel= discount_totel+0;
+    		}
+    		else{
+
+    		discount_totel=discount_totel+parseInt(obj1.value);
+    		}
+    	});
+
+    	
+
+    	if(Number.isNaN(discount_totel)){
+    		// discount.text("0.00/-");
+    		discount.innerHTML=0.00+"/-";
+    	}
+    	else{
+    		discount.text(discount_totel+"/-");
+    	}
+
+    	if(Number.isNaN(grand_totel)){
+    		subtotal.innerHTML=0.00+"/-";
+    	}
+    	else{
+    		subtotal.innerHTML=grand_totel+"/-";
+    	}
+    	calculateTax();
+    }
+
+ 
+
+    function calculateTax(){
+
+    	let subtotal=$('#subtotal').text();
+    	let amount=subtotal.replace("/-","");
+    	let taxval=$('#taxVal').val();
+
+    	let tax=taxval/100;
+    	let taxamount=amount*tax;
+
+    	let tx=$('#tx');
+    	tx.text(taxamount+"/-");
+
+
+    	let totelamt=$('#tott');
+
+    		total=parseInt(amount)+taxamount;
+    		totelamt.text(total+"/-");
+    	
+    }
+
+    function isValidEmailAddress(emailAddress) {
+	    var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+	    return pattern.test(emailAddress);
+	};
+
+</script>
+
+
+
+
+<!-- jspdf -->
+<script type="text/javascript">
+	
+	$('.btn-dwnld').click(function(){
+
+		// logo
+		var img = new Image();
+		var logosrc=$('#modallogo').attr('src');
+		img.src = logosrc;
+		// seal
+		var imgs = new Image();
+		var sealsrc=$('#modalseal').attr('src');
+		imgs.src = sealsrc;
+
+		let companyname=$('#modal2name').text();
+		let comapnystreet=$('#modal2street').text();
+		let comapnycity=$('#modal2city').text();
+		let comapnyzipcode=$('#modal2zipcode').text();
+		let comapnyemail="email : " + $('#modal2email').text();
+		let comapnyphone=$('#modal2phone').text();
+		let comapntbphone=$('#modal2businessphone').text();
+
+		let addr=comapnystreet+" , "+comapnycity+" , ( pin: "+comapnyzipcode+" )";
+		let cphone="phone : "+comapnyphone+" , "+comapntbphone;
+
+
+		let toname=$('#modal2toname').text();
+		let tostreet=$('#modal2tostreet').text();
+		let tocity=$('#modal2tocity').text();
+		let tozipcode=$('#modal2tozipcode').text();
+		let toaddr=tostreet+" , "+tocity+" , ( pin: "+tozipcode+" )";
+		let toemail="Email :"+$('#modal2toemail').text();
+		let tophone="Phone :"+$('#modal2tophone').text();
+
+		let invno=$('#invoice-no').text();
+		let invdate=$('#invoice-date').text();
+		let invdue=$('#invoice-duedate').text();
+
+		let subt=$('#modalsubtotal').text();
+		let dis=$('#modaldiscount').text();
+		let tav=$('#modaltaxvalue').text();
+		let ta=$('#modaltax').text();
+		let mamt=$('#modalamount').text();
+
+		let tw=$('#modaltw').text();
+		let twv=$('#totalinwords').text();
+
+			console.log($('#invoice-form').serialize().split('&'));
+
+		// $('#modalform').submit(function(e){
+		// 	e.preventDefault();
+	
+	
+
+		// });
+
+ 		// var dataString = {'cname':companyname,'cstreet':comapnystreet,'ccity':comapnycity,'czipcode':comapnyzipcode,'cemail':comapnyemail,'cphone':comapnyphone,'cbphone':comapntbphone,'toname':toname,'tostreet':tostreet,'tocity':tocity,'tozipcode':tozipcode,'tophone':tophone,'invno':invno,'invdate':invdate,'invdue':invdue,'subtotal':subt,'discount':dis,'tax':ta,'total':mamt,'totalinword':twv};
+		// $.ajax({
+  //           type: "POST",
+  //           url: "./up.php",
+  //          	data: dataString,  
+  //           success: function(result){
+  //           	   let res=JSON.parse(result);
+  //           	alert(res[1]);
+
+  //           	var doc = new jsPDF('p', 'pt', 'letter'),
+		// 			margins = {
+
+		// 				right:40,
+		// 				top: 40,
+		// 				bottom: 60,
+		// 				left: 40,
+		// 			};
+
+		// 	// doc.setLineWidth(1);
+		// 	// doc.rect(10, 20, 590, 500);
+
+		
+			
+		// 	doc.addImage(img, 'jpeg', 30, 25, 130, 80);
+		// 	doc.setFontSize(16);
+		// 	doc.text(companyname,180,50);
+		// 	doc.setFontSize(10);
+		// 	doc.text(addr,180,70);
+		// 	doc.text(cphone,180,85)
+		// 	doc.text(comapnyemail,180,100);
+		// 	// doc.line(10, 100, 600, 100);
+		// 	doc.setFontSize(16);
+		// 	doc.text("INVOICE",500,70);
+
+		// 	doc.setFontSize(10);
+		// 	doc.setFillColor(224, 224, 224);
+		// 	doc.rect(15, 130, 580, 23, 'F');
+		// 	doc.text("Bill To",25,145);
+		// 	// doc.line(10, 123, 600, 123);
+
+		// 	doc.setFontSize(16);
+		// 	doc.text(toname,40,190);
+		// 	doc.setFontSize(10);
+		// 	doc.text(toaddr,40,210);
+		// 	doc.text(tophone,40,225);
+		// 	doc.text(toemail,40,240);
+		// 	doc.line(10, 250, 600, 250);
+
+		// 	doc.text("Invoice No ",400,190);
+		// 	doc.text(invno,480,190);
+		// 	doc.text("Invoice Date ",400,205);
+		// 	doc.text(invdate,480,205);
+		// 	doc.text("Invoice Due-Date ",400,220);
+		// 	doc.text(invdue,480,220);
+	
+			
+		// 	// auto table
+		// 	// doc.autoTable({
+		// 	//   startY: 220,
+		// 	//   head: [['Item', 'Quantity', 'Rate','Discount','Amount']],
+		// 	//   body: [
+		// 	//     ['David', '10', '100', '0.00 ','1000'],
+		// 	//      ['David', '10', '100', '0.00 ','1000'],
+			 
+		// 	//   ],
+		// 	// });
+
+		// 	doc.autoTable({ startY: 280,html: '#modal-tabel' });
+
+		// 	let finalY = doc.lastAutoTable.finalY; 
+
+		// 	doc.text(30, finalY+30, tw);
+		// 	doc.text(30,finalY+50,twv);
+		// 	doc.text(380, finalY+30, "Sub Total");
+		// 	doc.text(470,finalY+30,subt);
+		// 	doc.text(380,finalY+50,"Discount");
+		// 	doc.text(470,finalY+50,dis);
+		// 	doc.text(380,finalY+70,tav);
+		// 	doc.text(470,finalY+70,ta);
+		// 	doc.setFontSize(13);
+		// 	doc.text(380,finalY+90,"Total");
+		// 	doc.text(470,finalY+90,mamt);
+
+		// 	doc.addImage(imgs, 'jpeg', 380,finalY+120, 130, 120);
+
+			
+
+			
+			
+
+		// 	var string = doc.output('datauristring');
+		// 	var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
+		// 	var x = window.open();
+		// 	x.document.open();
+		// 	x.document.write(embed);
+		// 	x.document.close();
+		// 	// doc.save('invoice.pdf');
+		// 	// window.open(doc.output('bloburl'), '_blank');
+  //           }
+  //       });
+
+
+
+		
+
+
+console.log("on click");
+   var doc = new jsPDF('p', 'pt', 'letter'),
+					margins = {
+
+						right:40,
+						top: 40,
+						bottom: 60,
+						left: 40,
+					};
+
+			// doc.setLineWidth(1);
+			// doc.rect(10, 20, 590, 500);
+
+		
+			
+			doc.addImage(img, 'jpeg', 30, 25, 130, 80);
+			doc.setFontSize(16);
+			doc.text(companyname,180,50);
+			doc.setFontSize(10);
+			doc.text(addr,180,70);
+			doc.text(cphone,180,85)
+			doc.text(comapnyemail,180,100);
+			// doc.line(10, 100, 600, 100);
+			doc.setFontSize(16);
+			doc.text("INVOICE",500,70);
+
+			doc.setFontSize(10);
+			doc.setFillColor(224, 224, 224);
+			doc.rect(15, 130, 580, 23, 'F');
+			doc.text("Bill To",25,145);
+			// doc.line(10, 123, 600, 123);
+
+			doc.setFontSize(16);
+			doc.text(toname,40,190);
+			doc.setFontSize(10);
+			doc.text(toaddr,40,210);
+			doc.text(tophone,40,225);
+			doc.text(toemail,40,240);
+			doc.line(10, 250, 600, 250);
+
+			doc.text("Invoice No ",400,190);
+			doc.text(invno,480,190);
+			doc.text("Invoice Date ",400,205);
+			doc.text(invdate,480,205);
+			doc.text("Invoice Due-Date ",400,220);
+			doc.text(invdue,480,220);
+	
+			
+			// auto table
+			// doc.autoTable({
+			//   startY: 220,
+			//   head: [['Item', 'Quantity', 'Rate','Discount','Amount']],
+			//   body: [
+			//     ['David', '10', '100', '0.00 ','1000'],
+			//      ['David', '10', '100', '0.00 ','1000'],
+			 
+			//   ],
+			// });
+
+			doc.autoTable({ startY: 280,html: '#modal-tabel' });
+
+			let finalY = doc.lastAutoTable.finalY; 
+
+			doc.text(30, finalY+30, tw);
+			doc.text(30,finalY+50,twv);
+			doc.text(380, finalY+30, "Sub Total");
+			doc.text(470,finalY+30,subt);
+			doc.text(380,finalY+50,"Discount");
+			doc.text(470,finalY+50,dis);
+			doc.text(380,finalY+70,tav);
+			doc.text(470,finalY+70,ta);
+			doc.setFontSize(13);
+			doc.text(380,finalY+90,"Total");
+			doc.text(470,finalY+90,mamt);
+
+			doc.addImage(imgs, 'jpeg', 380,finalY+120, 130, 120);
+
+			
+
+			
+			
+
+			var string = doc.output('datauristring');
+			var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
+			var x = window.open();
+			x.document.open();
+			x.document.write(embed);
+			x.document.close();
+			// doc.save('invoice.pdf');
+			// window.open(doc.output('bloburl'), '_blank');
+           
+
+	});
+
+</script>
+
+
+
+
+
+</body>
+</html>
